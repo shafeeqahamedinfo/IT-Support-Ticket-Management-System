@@ -12,7 +12,14 @@ import { useAuth } from './AuthContext';
 
 const SocketContext = createContext(null);
 
-const SOCKET_URL = import.meta.env.VITE_API_URL?.replace('/api', '') || 'http://localhost:5000';
+// In production (Render), frontend and backend share the same origin.
+// In dev, fall back to the Vite proxy host or explicit VITE_API_URL.
+const SOCKET_URL = (() => {
+  if (import.meta.env.VITE_SOCKET_URL) return import.meta.env.VITE_SOCKET_URL;
+  if (import.meta.env.VITE_API_URL) return import.meta.env.VITE_API_URL.replace('/api', '');
+  if (import.meta.env.PROD) return window.location.origin; // production: same host
+  return 'http://localhost:5000'; // local dev
+})();
 
 export function SocketProvider({ children }) {
   const { user } = useAuth();
