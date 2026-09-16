@@ -1,0 +1,2 @@
+// Mongoose models will be defined here in Phase 2+
+// Models: User, Ticket, Comment, Notification, Department, Category, Feedback, ActivityLog, KnowledgeBaseArticle, TicketHistory
