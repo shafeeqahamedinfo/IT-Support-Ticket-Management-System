@@ -23,6 +23,8 @@ const connectDB = async () => {
     const conn = await mongoose.connect(uri, {
       serverSelectionTimeoutMS: 15000, // 15s timeout
       socketTimeoutMS: 45000,
+      // Allow invalid certs for networks with TLS-intercepting proxies
+      tlsAllowInvalidCertificates: true,
     });
 
     retryCount = 0; // Reset on success
