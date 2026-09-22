@@ -6,6 +6,11 @@
  * Version: 1.0.0
  */
 
+// Force Google DNS BEFORE any other module loads
+// (fixes MongoDB Atlas SRV lookup failures on restricted networks)
+const dns = require('dns');
+dns.setServers(['8.8.8.8', '8.8.4.4', '1.1.1.1']);
+
 const express = require('express');
 const http = require('http');
 const cors = require('cors');
